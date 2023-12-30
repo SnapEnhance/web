@@ -1,0 +1,12 @@
+{
+  "name": "snapenhance-web",
+  "version": "1.0.0",
+  "description": "A userscript to Enhance the User experience on Snapchat Web",
+  "main": "index.js",
+  "repository": "https://github.com/SnapEnhance/web/",
+  "author": "SnapEnhance",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "typescript": "^5.3.3"
+  }
+}
