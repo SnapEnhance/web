@@ -6,7 +6,6 @@
 // @match        *://web.snapchat.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=snapchat.com
 // @grant        unsafeWindow
-// @grant        GM_xmlhttpRequest
 // @run-at       document-start
 // ==/UserScript==
 
