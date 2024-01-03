@@ -1,15 +1,13 @@
 // ==UserScript==
 // @name         SnapEnhance Web
 // @description  A userscript to Enhance the User experience on Snapchat Web
-// @version      1.0.0
+// @version      1.0.1
 // @author       SnapEnhance
 // @match        *://web.snapchat.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=snapchat.com
 // @grant        unsafeWindow
 // @run-at       document-start
 // ==/UserScript==
-
-//ported to typescript, not everything tested
 
 /*
 AVAILABLE FEATURES : 
@@ -70,8 +68,10 @@ AVAILABLE FEATURES :
         });
 
         // Hook worker web requests
-        const oldFetch = window.fetch;
-        window.fetch = async (...args: any[]) => {
+        const oldFetch = fetch;
+        // @ts-ignore 
+        // eslint-disable-next-line no-implicit-globals
+        fetch = async (...args: any[]) => {
             args[0] = hookPreRequest(args[0]);
             if (args[0] == null) {
                 throw new Error();
@@ -91,6 +91,7 @@ AVAILABLE FEATURES :
                 });
             }
 
+            // @ts-ignore
             const result = oldFetch(...args);
 
             return new Promise(async (resolve, reject) => {
