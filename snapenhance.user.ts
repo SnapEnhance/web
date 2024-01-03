@@ -1,14 +1,17 @@
 // ==UserScript==
 // @name         SnapEnhance Web
+// @namespace    snapenhance-web
 // @description  A userscript to Enhance the User experience on Snapchat Web
-// @version      1.0.1
+// @version      1.0.2
 // @author       SnapEnhance
+// @source       https://github.com/SnapEnhance/web/
+// @license      GPL-3.0-only
+// @supportURL   https://github.com/SnapEnhance/web/issues
 // @match        *://web.snapchat.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=snapchat.com
 // @grant        unsafeWindow
 // @run-at       document-start
 // ==/UserScript==
-
 (function (window: any) {
     function simpleHook(object: any, name: string, proxy: Function) {
         const old = object[name];
