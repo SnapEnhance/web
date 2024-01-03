@@ -9,15 +9,6 @@
 // @run-at       document-start
 // ==/UserScript==
 
-/*
-AVAILABLE FEATURES : 
-- hide bitmoji
-- remove effects when away from browser
-- download audio notes and images using right click
-- prevent typing notification
-- prevent read receipts
-*/
-
 (function (window: any) {
     function simpleHook(object: any, name: string, proxy: Function) {
         const old = object[name];
