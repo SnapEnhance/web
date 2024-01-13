@@ -40,15 +40,9 @@
             return request;
         }
 
-        function _arrayBufferToBase64(buffer: ArrayBuffer) {
-            const binary = new Uint8Array(buffer).reduce((acc, byte) => acc + String.fromCharCode(byte), '');
-            return btoa(binary);
-        }
-
         async function hookPostRequest(request: Request, response: Response) {
             if (request.headers && request.headers.get("content-type") === "application/grpc-web+proto") {
                 const arrayBuffer = await response.arrayBuffer();
-                console.log("Response", response.url, _arrayBufferToBase64(arrayBuffer));
                 response.arrayBuffer = async () => arrayBuffer;
             }
             return response;
@@ -69,17 +63,12 @@
         fetch = async (...args: any[]) => {
             args[0] = hookPreRequest(args[0]);
             if (args[0] == null) {
-                throw new Error();
+                return new Promise((resolve) => resolve(new Response(null, { status: 200 })));
             }
             const requestBody = args[0].body;
 
-            console.log(args[0]);
-
             if (requestBody && !requestBody.locked) {
                 const buffer = await requestBody.getReader().read();
-                if (buffer.value) {
-                    console.log("Request", args[0].url, _arrayBufferToBase64(buffer.value));
-                }
                 args[0] = new Request(args[0], {
                     body: buffer.value,
                     headers: args[0].headers
@@ -119,9 +108,17 @@
         // Allow audio note and image download
         if (args[0] === "audio" || args[0] === "video" || args[0] === "img") {
             simpleHook(result, "setAttribute", (proxy2: Function, instance2: any) => (...args2: any[]) => {
-                if (args2[0] === "controlsList") return;
+                result.style = "pointer-events: auto;"
+                if (args2[0] === "controlsList") return
                 proxy2.call(instance2, ...args2);
             });
+            
+            result.addEventListener("load", (_: Event) => {
+                result.parentElement?.addEventListener("contextmenu", (event: Event) => {
+                    event.stopImmediatePropagation();
+                });
+            });
+
             result.addEventListener("contextmenu", (event: Event) => {
                 event.stopImmediatePropagation();
             });
