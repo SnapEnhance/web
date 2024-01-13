@@ -26,6 +26,23 @@
         }
     });
 
+
+    // hook main window requests
+    const oldWindowFetch = window.fetch
+
+    window.fetch = (...args: any[]) => {
+        const url = args[0].url;
+        
+        if (typeof url === "string") {
+            if (url.endsWith("readreceipt-indexer/batchuploadreadreceipts")) {
+                console.log("bypassed story read receipt");
+                return new Promise((resolve) => resolve(new Response(null, { status: 200 })));
+            }
+        }
+        
+        return oldWindowFetch(...args);
+    }
+
     // Inject into worker
     function workerInjected() {
         function hookPreRequest(request: Request) {
@@ -34,7 +51,7 @@
                 return null;
             }
             if (request.url.endsWith("messagingcoreservice.MessagingCoreService/UpdateConversation")) {
-                console.log("bypassed read receipt");
+                console.log("bypassed conversation read receipt");
                 return null;
             }
             return request;
