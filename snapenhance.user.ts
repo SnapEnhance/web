@@ -2,7 +2,7 @@
 // @name         SnapEnhance Web
 // @namespace    snapenhance-web
 // @description  A userscript to Enhance the User experience on Snapchat Web
-// @version      1.0.2
+// @version      1.1.0
 // @author       SnapEnhance
 // @source       https://github.com/SnapEnhance/web/
 // @license      GPL-3.0-only
