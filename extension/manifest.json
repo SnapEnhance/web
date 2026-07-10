@@ -24,7 +24,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["*://snapchat.com/web/*"],
+        "matches": ["www.snapchat.com/web"],
         "js": ["snapenhance.js"],
         "run_at": "document_start"
       }
